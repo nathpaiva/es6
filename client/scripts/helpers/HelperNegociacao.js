@@ -1,7 +1,7 @@
 class HelperNegociacao {
 
   constructor() {
-    throw Error('Esse metodo não pode ser instanciado');
+    throw new Error('Esse metodo não pode ser instanciado');
   }
 
   static converteParaData(txt) {
