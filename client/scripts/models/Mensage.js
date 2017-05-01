@@ -1,6 +1,6 @@
 class Mensage {
 
-  constructor(text = '', updateMessage) {
+  constructor(updateMessage, text = '') {
     this._text = text;
     this._updateMessage = updateMessage;
   }

@@ -1,18 +1,15 @@
 class ListaNegociacoes {
 
-  constructor(upDateListaNegociacao) {
+  constructor() {
     this._negociacoes = [];
-    this._upDateListaNegociacao = upDateListaNegociacao;
   }
 
   adiciona(negociacao) {
     this._negociacoes.push(negociacao);
-    this._upDateListaNegociacao(this);
   }
 
   cleanNegotiations() {
     this._negociacoes = [];
-    this._upDateListaNegociacao(this);
   }
 
   get negociacao() {
