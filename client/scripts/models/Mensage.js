@@ -1,7 +1,8 @@
 class Mensage {
 
-  constructor(text = '') {
+  constructor(text = '', updateMessage) {
     this._text = text;
+    this._updateMessage = updateMessage;
   }
 
   get text() {
@@ -10,5 +11,6 @@ class Mensage {
 
   set text(text) {
     this._text = text;
+    this._updateMessage(this);
   }
 }
