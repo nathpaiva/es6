@@ -6,32 +6,34 @@ class NegociacaoController {
     this._inputQnt = $('#quantidade');
     this._inputPrice = $('#valor');
 
-    this._ListaNegociacoes = ProxyService.create(new ListaNegociacoes(), ['adiciona', 'cleanNegotiations'], model => this._NegociacaoView.update(model));
-    // this._ListaNegociacoes = new ListaNegociacoes(model => this._NegociacaoView.update(model));
-    this._NegociacaoView = new NegociacaoView($('#negociacaoTabela'));
-    this._NegociacaoView.update(this._ListaNegociacoes);
+    this._ListaNegociacoes = new HelperBind(new ListaNegociacoes(), new NegociacaoView($('#negociacaoTabela')), 'adiciona', 'cleanNegotiations');
 
-    this._mensage = ProxyService.create(new Mensage(), ['text'], model => this._mensagemView.update(model));
-    // this._mensage = new Mensage(model => this._mensagemView.update(model));
-    this._mensagemView = new MensagemView($('#mensagemView'));
-    this._mensagemView.update(this._mensage);
+    this._mensage = new HelperBind(new Mensage(), new MensagemView($('#mensagemView')), 'text');
   }
 
   adiciona(event) {
     event.preventDefault();
 
     this._ListaNegociacoes.adiciona(this._createNegociacao());
-    // this._NegociacaoView.update(this._ListaNegociacoes);
     this._mensage.text = 'Negociacao adicionada com sucesso';
-    // this._mensagemView.update(this._mensage);
     this._clearForm();
+  }
+
+  importNegotiations() {
+
+    let service = new NegociacoesService();
+    Promise.all([service.getNegociacoesSemana(), service.getNegociacoesSemanaPassada(), service.getNegociacoesSemanaRetrasada()])
+      .then((data) => {
+        data.reduce((atach, negociation) => atach.concat(negociation), [])
+          .forEach(negotiation => this._ListaNegociacoes.adiciona(negotiation));
+        this._mensage.text = 'Negociações importadas com sucesso';
+      })
+      .catch(err => this._mensage.text = err);
   }
 
   cleanNegotiations() {
     this._ListaNegociacoes.cleanNegotiations();
-    // this._NegociacaoView.update(this._ListaNegociacoes);
     this._mensage.text = 'Negociacao foram apagadas com sucesso';
-    // this._mensagemView.update(this._mensage);
   }
 
   _createNegociacao() {

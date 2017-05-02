@@ -1,9 +1,9 @@
-class ProxyService {
+class ProxyFactory {
 
   static create(obj, props, action) {
     return new Proxy(obj, {
       get(target, prop, receiver) {
-        if (props.includes(prop) && ProxyService.isFunction(target[prop])) {
+        if (props.includes(prop) && ProxyFactory.isFunction(target[prop])) {
           return function() {
             Reflect.apply(target[prop], target, arguments);
             action(target);
