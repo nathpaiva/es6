@@ -40,6 +40,10 @@ class NegociacaoController {
     return new Negociacao(HelperNegociacao.converteParaData(this._inputData.value), this._inputQnt.value, this._inputPrice.value);
   }
 
+  ordena(type) {
+    console.log('type', type);
+  }
+
   _clearForm() {
     this._inputData.value = '';
     this._inputPrice.value = 0;
