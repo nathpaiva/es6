@@ -7,9 +7,7 @@ class NegociacoesService {
   getNegociacoesSemana() {
     return new Promise((resolve, reject) => {
       this._http.get('negociacoes/semana')
-        .then((data) => {
-          resolve(data.map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor)));
-        })
+        .then(data => resolve(data.map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor))))
         .catch(() => {
           reject('Não foi possível obter as negociações da semana.');
           console.error(xhr.responseText);
@@ -20,9 +18,7 @@ class NegociacoesService {
   getNegociacoesSemanaPassada() {
     return new Promise((resolve, reject) => {
       this._http.get('negociacoes/anterior')
-        .then((data) => {
-          resolve(data.map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor)));
-        })
+        .then(data => resolve(data.map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor))))
         .catch(() => {
           reject('Não foi possível obter as negociações da semana passada.');
           console.error(xhr.responseText);
@@ -33,9 +29,7 @@ class NegociacoesService {
   getNegociacoesSemanaRetrasada() {
     return new Promise((resolve, reject) => {
       this._http.get('negociacoes/retrasada')
-        .then((data) => {
-          resolve(data.map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor)));
-        })
+        .then(data => resolve(data.map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor))))
         .catch(() => {
           reject('Não foi possível obter as negociações da semana retrasada.');
           console.error(xhr.responseText);
